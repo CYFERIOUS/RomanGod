@@ -13,7 +13,6 @@ public class Eventos : MonoBehaviour {
 	string[] Milenas  = new string[]{"M","MM","MMM"};
 
 	string t;
-
 	int longEst;
 	
 	void EnterNumbers(int a, int b){
@@ -24,10 +23,14 @@ public class Eventos : MonoBehaviour {
 
 		d.Split (new char[]{','});
 
+		string romano = "";
 
-		for (int i = 0; i< d.Length; i++) {
-			transformNumbers (d[i], d.Length);
+		for (int i = 0; i<d.Length; i++) {
+			
+			romano += transformNumbers (d[i], d.Length-i)+" ";
 		}
+
+		Debug.Log (romano);
 
 	}
 
@@ -158,52 +161,35 @@ public class Eventos : MonoBehaviour {
 		return milenal;
 	}
 
-	void transformNumbers(char c, int longEst){
+	string transformNumbers(char c, int longEst){
 
 		string j = c.ToString();
 		int w = int.Parse (j);
 
-
-		string[] resoluto = new string[4];
-
-		if (longEst == 1) {
-			resoluto[0] = unitario(w);
-		}
-
-		if (longEst == 2) {
-
-			resoluto[1] = decenario(w);
-			resoluto[0] = unitario(w);
+		Debug.Log (c+longEst);
 
 
-		}
-
-		if (longEst == 3) {
-		
-			resoluto[2] = centenario(w);
-			resoluto[1] = decenario(w);
-			resoluto[0] = unitario(w);
-			
-		}
-
-		if(longEst==4){
-			resoluto[3] = milenario(w);
-			resoluto[2] = centenario(w);
-			resoluto[1] = decenario(w);
-			resoluto[0] = unitario(w);
-
-		}
-
-		for(int i =0; i<longEst;i++){
-			Debug.Log(resoluto[i]);
-		}
-			
-		
+		switch (longEst) 
+		{
+			case 1:
+				return unitario(w);
+				
+			case 2:
+				return decenario(w);
+				
+			case 3:
+				return centenario(w);
+				
+			case 4:
+				return milenario(w);
+		default:
+			return "";
+		}	
 	}
 	
 	void Start () {
 
-		EnterNumbers (120,8);
+		EnterNumbers (15,8);
 
 	}
 	
